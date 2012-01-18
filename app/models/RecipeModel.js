@@ -1,4 +1,4 @@
-var schema = new this.Schema({
+var schema = {
   title: String,
   body: String,
   //comments: [ CommentSchema ],
@@ -6,14 +6,14 @@ var schema = new this.Schema({
   //ingredients: [ IngredientSchema ],
   created_at: Date,
   updated_at: Date
-});
+};
 
 module.exports = require(app.set('models') + '/ApplicationModel').extend(function() {
-  this.DBModel = this.mongoose.model('Recipe', schema)
+  this.DBModel = this.mongoose.model('Recipe', new this.Schema(schema))
 })
 .methods({
   saveit:  function (params, callback) {
-    console.log(params)
+    console.log('in the model'+params)
     var recipe = new this.DBModel(params)
     recipe.save(callback)
   }, 

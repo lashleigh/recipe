@@ -15,10 +15,12 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
       })
     }, 
     create: function() {
-      this.getModel('Recipe').saveit(this.request.body, function(err) {
+    var params = this.request.body
+    console.log('in the controller'+params)
+      this.getModel('Recipe').saveit(params, function(err) {
        console.log(err) 
       })
-      //this.response.redirect('/recipe')
+      this.response.redirect('/recipe')
     },
     show: function () {
       this.render('show', {
