@@ -12,11 +12,10 @@ module.exports = require(app.set('models') + '/ApplicationModel').extend(functio
   this.DBModel = this.mongoose.model('Recipe', schema)
 })
 .methods({
-  saveit:  function (params) {
+  saveit:  function (params, callback) {
     console.log(params)
     var recipe = new this.DBModel(params)
-    console.log(recipe)
-    recipe.save
+    recipe.save(callback)
   }, 
   find: function (id, callback) {
     this.DBModel.findById(id, callback)

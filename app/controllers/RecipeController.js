@@ -15,12 +15,14 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
       })
     }, 
     create: function() {
-      this.getModel('Recipe').saveit(this.request.body)  
-      this.response.redirect('/recipe')
+      this.getModel('Recipe').saveit(this.request.body, function(err) {
+       console.log(err) 
+      })
+      //this.response.redirect('/recipe')
     },
     show: function () {
       this.render('show', {
-        title: 'booger pi',
+        title: 'pi',
         stuff: [{amount: 50, name: 'flour'}, {amount: 100, name: 'water'}, {amount: 1.2, name: 'salt'}]
       })
     }
