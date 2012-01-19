@@ -1,2 +1,7 @@
 <a href="recipe/{{_id}}"><h1>Here is a recipe called {{title}}</h1></a>
+<form method='post' action='/recipe/{{_id}}/destroy'>
+  <div class='buttons'>
+    <input type='submit' value='Destroy Recipe' />
+  </div>
+</form>
 {{>ingredients}}

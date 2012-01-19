@@ -49,5 +49,10 @@ module.exports = require(app.set('models') + '/ApplicationModel').extend(functio
     this.DBModel.find({}, function(err, recipes) {
       success(count, recipes)
     })
+  },
+  destroy: function(id) {
+    var recipe = this.DBModel.findById(id)
+    console.log(recipe)
+    recipe.remove()
   }
 })

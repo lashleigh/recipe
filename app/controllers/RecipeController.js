@@ -37,6 +37,13 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
         }, 
         function() {
           control.render('show', {title: 'fail balls balls'})
-        })
-      }
+        }
+      )
+    },
+    update: function(params) {
+    },
+    destroy: function(id) {
+      this.getModel('Recipe').destroy(id)
+      this.response.redirect('/recipe')
+    }
   })
