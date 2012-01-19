@@ -1,20 +1,28 @@
-var schema = {
-  title: String,
-  body: String,
-  //comments: [ CommentSchema ],
-  //notes: [ NoteSchema ],
-  //ingredients: [ IngredientSchema ],
-  created_at: Date,
-  updated_at: Date
-};
-
+var und = require('underscore')
 module.exports = require(app.set('models') + '/ApplicationModel').extend(function() {
-  this.DBModel = this.mongoose.model('Recipe', new this.Schema(schema))
+  var IngredientSchema = new this.Schema({
+    amount: Number,
+    name: String,
+    time: Date,
+    temp: Number
+  })
+  this.DBModel = this.mongoose.model('Recipe', new this.Schema({
+    title: String,
+    //comments: [ CommentSchema ],
+    //notes: [ NoteSchema ],
+    ingredients: [ IngredientSchema ],
+    created_at: Date,
+    updated_at: Date
+  }))
 })
 .methods({
   saveit:  function (params, callback) {
-    console.log('in the model'+params)
-    var recipe = new this.DBModel(params)
+    var recipe = new this.DBModel({ title: params.title})
+    console.log(params)
+    und.each(params.stuff, function(stuff) {
+      console.log(stuff)
+      recipe.ingredients.push({amount: 150, name: stuff})
+    })
     recipe.save(callback)
   }, 
   find: function (id, callback) {
@@ -25,16 +33,18 @@ module.exports = require(app.set('models') + '/ApplicationModel').extend(functio
   },
   show: function(id, success, failure) {
     this.DBModel.findById(id, function(err, res) {
-      console.log(id, res)
-      success(res)
+      if(err) {
+        failure()
+      } else {
+      console.log(res)
+        success(res)
+      }
     })
   },
   index: function(success, failure) {
-    console.log('should be counting')
     var count
     this.DBModel.count({}, function(err, docs) {
       count = docs
-      console.log(err, docs, 'docs')
     })
     this.DBModel.find({}, function(err, recipes) {
       success(count, recipes)

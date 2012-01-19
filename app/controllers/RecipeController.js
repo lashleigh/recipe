@@ -33,10 +33,10 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
       var control = this
       this.getModel('Recipe').show(id, 
         function(recipe) {
-        control.render('show', {recipe: recipe})
+          control.render('show', {recipe: recipe, title: 'woo balls'})
         }, 
         function() {
-        
+          control.render('show', {title: 'fail balls balls'})
         })
       }
   })
