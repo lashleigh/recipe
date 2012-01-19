@@ -7,6 +7,7 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
       this.getModel('Recipe').index(
         function(num, recipes) {
           control.render('index', {
+            title: 'balls',
             count: num,
             recipes: recipes
           })
@@ -15,11 +16,6 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
           console.log(err)
         }
       )
-      /*this.render('index', {
-        count: 12,
-        recipes: [{title: 'thing', stuff: [{amount: 50, name: 'flour'}, {amount: 100, name: 'water'}, {amount: 1.2, name: 'salt'}]}, 
-                  {title: 'bings', stuff: [{amount: 20, name: 'wheat'}, {amount: 72,  name: 'water'}, {amount: 0.6, name: 'salt'}]}]
-      })*/
     },
     new: function() {
       this.render('new', {
@@ -33,10 +29,14 @@ module.exports = require(app.set('controllers') + '/ApplicationController').exte
       })
       this.response.redirect('/recipe')
     },
-    show: function () {
-      this.render('show', {
-        title: 'pi',
-        stuff: [{amount: 50, name: 'flour'}, {amount: 100, name: 'water'}, {amount: 1.2, name: 'salt'}]
-      })
-    }
+    show: function (id) {
+      var control = this
+      this.getModel('Recipe').show(id, 
+        function(recipe) {
+        control.render('show', {recipe: recipe})
+        }, 
+        function() {
+        
+        })
+      }
   })

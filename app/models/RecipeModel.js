@@ -23,16 +23,20 @@ module.exports = require(app.set('models') + '/ApplicationModel').extend(functio
   findAll: function() {
     this.DBModel.find()
   },
+  show: function(id, success, failure) {
+    this.DBModel.findById(id, function(err, res) {
+      console.log(id, res)
+      success(res)
+    })
+  },
   index: function(success, failure) {
     console.log('should be counting')
     var count
-    var recipes
     this.DBModel.count({}, function(err, docs) {
       count = docs
       console.log(err, docs, 'docs')
     })
-    this.DBModel.find({}, function(err, docs) {
-      recipes = docs
+    this.DBModel.find({}, function(err, recipes) {
       success(count, recipes)
     })
   }
