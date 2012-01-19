@@ -21,7 +21,7 @@ module.exports = require(app.set('models') + '/ApplicationModel').extend(functio
     console.log(params)
     und.each(params.stuff, function(stuff) {
       console.log(stuff)
-      recipe.ingredients.push({amount: 150, name: stuff})
+      recipe.ingredients.push(stuff)
     })
     recipe.save(callback)
   }, 

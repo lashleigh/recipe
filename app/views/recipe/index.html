@@ -1,7 +1,8 @@
 <h1>There are {{count}} recipes in the database</h1>
-{{#recipes}}
+<a class="button" href="/recipe/new">New Recipe</a>
 <div class="recipes">
-  {{> recipe }}
+  {{#recipes}}
+    {{> recipe }}
+  {{/recipes}}
 </div>
-{{/recipes}}
 
